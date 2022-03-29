@@ -1,6 +1,7 @@
 package crmenforcer
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -25,9 +26,15 @@ func check(s session, resource string, action string) (ok bool) {
 	return
 }
 
+func parse(i interface{}) (s session) {
+	data, _ := json.Marshal(i)
+	json.Unmarshal(data, &s)
+	return
+}
+
 func ClientsRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "clients", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -38,7 +45,7 @@ func ClientsRead() gin.HandlerFunc {
 
 func ClientsWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "clients", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -49,7 +56,7 @@ func ClientsWrite() gin.HandlerFunc {
 
 func ContactsRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "contacts", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -60,7 +67,7 @@ func ContactsRead() gin.HandlerFunc {
 
 func ContactsWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "contacts", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -71,7 +78,7 @@ func ContactsWrite() gin.HandlerFunc {
 
 func HoldingsRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "holdings", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -82,7 +89,7 @@ func HoldingsRead() gin.HandlerFunc {
 
 func HoldingsWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "holdings", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -93,7 +100,7 @@ func HoldingsWrite() gin.HandlerFunc {
 
 func AreasRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "areas", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -104,7 +111,7 @@ func AreasRead() gin.HandlerFunc {
 
 func AreasWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "areas", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -115,7 +122,7 @@ func AreasWrite() gin.HandlerFunc {
 
 func CategoriesRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "categories", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -126,7 +133,7 @@ func CategoriesRead() gin.HandlerFunc {
 
 func CategoriesWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "categories", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -137,7 +144,7 @@ func CategoriesWrite() gin.HandlerFunc {
 
 func FunnelsRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "funnels", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -148,7 +155,7 @@ func FunnelsRead() gin.HandlerFunc {
 
 func FunnelsWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "funnels", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -159,7 +166,7 @@ func FunnelsWrite() gin.HandlerFunc {
 
 func ProjectsRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -170,7 +177,7 @@ func ProjectsRead() gin.HandlerFunc {
 
 func ProjectsWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -181,7 +188,7 @@ func ProjectsWrite() gin.HandlerFunc {
 
 func ProjectsTasksRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_tasks", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -192,7 +199,7 @@ func ProjectsTasksRead() gin.HandlerFunc {
 
 func ProjectsTasksWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_tasks", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -203,7 +210,7 @@ func ProjectsTasksWrite() gin.HandlerFunc {
 
 func ProjectsCommentsRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_comments", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -214,7 +221,7 @@ func ProjectsCommentsRead() gin.HandlerFunc {
 
 func ProjectsCommentsWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_comments", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -225,7 +232,7 @@ func ProjectsCommentsWrite() gin.HandlerFunc {
 
 func ProjectsDocumentsRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_documents", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -236,7 +243,7 @@ func ProjectsDocumentsRead() gin.HandlerFunc {
 
 func ProjectsDocumentsWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_documents", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -247,7 +254,7 @@ func ProjectsDocumentsWrite() gin.HandlerFunc {
 
 func ProjectsHistoryRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_history", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -258,7 +265,7 @@ func ProjectsHistoryRead() gin.HandlerFunc {
 
 func ProjectsHistoryWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_history", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -269,7 +276,7 @@ func ProjectsHistoryWrite() gin.HandlerFunc {
 
 func ProjectsPropertiesRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_properties", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -280,7 +287,7 @@ func ProjectsPropertiesRead() gin.HandlerFunc {
 
 func ProjectsPropertiesWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "projects_properties", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -291,7 +298,7 @@ func ProjectsPropertiesWrite() gin.HandlerFunc {
 
 func ReportsStatusGeneralRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "reports_status_general", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -302,7 +309,7 @@ func ReportsStatusGeneralRead() gin.HandlerFunc {
 
 func ReportsStatusGeneralWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "reports_status_general", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -313,7 +320,7 @@ func ReportsStatusGeneralWrite() gin.HandlerFunc {
 
 func ReportsStatusPersonalRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "reports_status_personal", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -324,7 +331,7 @@ func ReportsStatusPersonalRead() gin.HandlerFunc {
 
 func ReportsStatusPersonalWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "reports_status_personal", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -335,7 +342,7 @@ func ReportsStatusPersonalWrite() gin.HandlerFunc {
 
 func ReportsStatusUserRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "reports_status_user", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -346,7 +353,7 @@ func ReportsStatusUserRead() gin.HandlerFunc {
 
 func ReportsStatusUserWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "reports_status_user", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -357,7 +364,7 @@ func ReportsStatusUserWrite() gin.HandlerFunc {
 
 func ReportsStatusFunnelRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "reports_status_funnel", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -368,7 +375,7 @@ func ReportsStatusFunnelRead() gin.HandlerFunc {
 
 func ReportsStatusFunnelWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "reports_status_funnel", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -379,7 +386,7 @@ func ReportsStatusFunnelWrite() gin.HandlerFunc {
 
 func UsersRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "users", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -390,7 +397,7 @@ func UsersRead() gin.HandlerFunc {
 
 func UsersWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "users", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -401,7 +408,7 @@ func UsersWrite() gin.HandlerFunc {
 
 func RolesRead() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "roles", "read") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
@@ -412,7 +419,7 @@ func RolesRead() gin.HandlerFunc {
 
 func RolesWrite() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		s := c.MustGet("session").(session)
+		s := parse(c.MustGet("session"))
 		if !check(s, "roles", "write") {
 			c.AbortWithStatus(http.StatusForbidden)
 			return
