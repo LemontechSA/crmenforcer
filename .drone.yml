@@ -1,0 +1,32 @@
+---
+kind: pipeline
+type: kubernetes
+name: merge-master
+
+steps:
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: SLACK_WEBHOOK
+      channel:
+        from_secret: SLACK_CHANNEL
+      link_names: true
+      icon_emoji: nani
+      username: Drone
+      template: >
+        *Merge on CRM-Enforcer master branch*
+
+        *${DRONE_COMMIT_MESSAGE}*
+
+        Commit: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{ build.commit }}|{{ truncate build.commit 8 }}>
+
+        Branch: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commits/{{ build.branch }}|{{ build.branch }}>
+
+        Author: {{ build.author }} {{ build.link }}
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
